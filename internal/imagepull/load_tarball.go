@@ -5,6 +5,7 @@ import (
 	"compress/gzip"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -53,6 +54,10 @@ func LoadTarballImage(source string, outputDir string) error {
 		}
 		if hdr.Typeflag != tar.TypeReg {
 			continue // skip non-regular files
+		}
+		if strings.Contains(hdr.Name, "..") {
+			slog.Warn("Skipping file as it uses '..' within the path. This is not allowed to prevent path traversal attacks.", "name", hdr.Name)
+			continue
 		}
 		outPath := filepath.Join(outputDir, hdr.Name)
 		if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
