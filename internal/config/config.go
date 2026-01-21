@@ -7,6 +7,10 @@ import (
 	"os"
 	"path/filepath"
 
+	"bytes"
+	"strings"
+	"text/template"
+
 	"github.com/BurntSushi/toml"
 	"oras.land/oras-go/v2/registry/remote/credentials"
 )
@@ -42,6 +46,42 @@ func DefaultConfigPath() string {
 		return "./tedge-oscar.toml"
 	}
 	return filepath.Join(home, ".config", "tedge-oscar", "config.toml")
+}
+
+type TemplateContext struct {
+	Env    map[string]string
+	Mapper string
+}
+
+func NewTemplateContext(mapper string) *TemplateContext {
+	env := make(map[string]string)
+	for _, e := range os.Environ() {
+		pair := strings.SplitN(e, "=", 2)
+		if len(pair) == 2 {
+			env[pair[0]] = pair[1]
+		}
+	}
+	return &TemplateContext{
+		Env:    env,
+		Mapper: mapper,
+	}
+}
+
+func (c *Config) evaluateTemplate(v string, mapper string) (string, error) {
+	tmpl, err := template.New("eval").Parse(v)
+	if err != nil {
+		return v, err
+	}
+	var buf bytes.Buffer
+	err = tmpl.Execute(&buf, NewTemplateContext(mapper))
+	if err != nil {
+		return v, err
+	}
+	return buf.String(), nil
+}
+
+func (c *Config) GetDeployDir(mapper string) (string, error) {
+	return c.evaluateTemplate(c.DeployDir, mapper)
 }
 
 func expandEnvVars(s string) string {
