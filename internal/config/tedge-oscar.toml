@@ -5,7 +5,7 @@ image_dir = "$TEDGE_CONFIG_DIR/flows/images"
 
 # Directory where deployment instance TOML files will be written
 # (optional, defaults to <image_dir>/../deployments if not set)
-deploy_dir = "$TEDGE_CONFIG_DIR/flows"
+deploy_dir = '{{ .Env.TEDGE_CONFIG_DIR }}/mappers/{{ .Mapper }}/flows'
 # deploy_dir = "$HOME/.tedge/deployments"
 
 # You can also use JSON or YAML formats if preferred.

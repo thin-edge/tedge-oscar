@@ -3,6 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"strings"
@@ -64,16 +65,22 @@ $ tedge-oscar flows instances list`,
 		if err != nil {
 			return fmt.Errorf("failed to load config: %w", err)
 		}
-		deployDir := cfg.DeployDir
-		if deployDir == "" {
-			deployDir = os.Getenv("DEPLOY_DIR")
+		mapper := "flows"
+		if v, err := cmd.Flags().GetString("mapper"); err == nil {
+			mapper = v
 		}
-		if deployDir == "" {
-			deployDir = filepath.Join(filepath.Dir(cfg.ImageDir), "deployments")
+		deployDir, err := cfg.GetDeployDir(mapper)
+		if err != nil {
+			return fmt.Errorf("failed to evaluate deployDir: %w", err)
 		}
+		slog.Info("Reading deployDir", "path", deployDir)
 		files, err := os.ReadDir(deployDir)
 		if err != nil {
-			return fmt.Errorf("failed to read deploy dir: %w", err)
+			if os.IsNotExist(err) {
+				files = []os.DirEntry{}
+			} else {
+				return fmt.Errorf("failed to read deploy dir: %w", err)
+			}
 		}
 		// Use the unexpanded deployDir from config for display
 		unexpandedDeployDir := cfg.UnexpandedDeployDir
@@ -279,16 +286,19 @@ $ tedge-oscar flows instances deploy myinstance ghcr.io/thin-edge/connectivity-c
 		if err != nil {
 			return err
 		}
+
+		mapper := "flows"
+		if v, err := cmd.Flags().GetString("mapper"); err == nil {
+			mapper = v
+		}
+
 		interval := ""
 		if cmd.Flags().Changed("interval") {
 			interval, _ = cmd.Flags().GetString("interval")
 		}
-		deployDir := cfg.DeployDir
-		if deployDir == "" {
-			deployDir = os.Getenv("DEPLOY_DIR")
-		}
-		if deployDir == "" {
-			deployDir = filepath.Join(filepath.Dir(cfg.ImageDir), "deployments")
+		deployDir, err := cfg.GetDeployDir(mapper)
+		if err != nil {
+			return fmt.Errorf("failed to evaluate deployDir: %w", err)
 		}
 		if err := os.MkdirAll(deployDir, 0755); err != nil {
 			return err
@@ -425,12 +435,13 @@ $ tedge-oscar flows instances remove myinstance`,
 		if err != nil {
 			return nil, cobra.ShellCompDirectiveNoFileComp
 		}
-		deployDir := cfg.DeployDir
-		if deployDir == "" {
-			deployDir = os.Getenv("DEPLOY_DIR")
+		mapper := "flows"
+		if v, err := cmd.Flags().GetString("mapper"); err == nil {
+			mapper = v
 		}
-		if deployDir == "" {
-			deployDir = filepath.Join(filepath.Dir(cfg.ImageDir), "deployments")
+		deployDir, err := cfg.GetDeployDir(mapper)
+		if err != nil {
+			return nil, cobra.ShellCompDirectiveNoFileComp
 		}
 		entries, err := os.ReadDir(deployDir)
 		if err != nil {
@@ -464,12 +475,13 @@ $ tedge-oscar flows instances remove myinstance`,
 		if err != nil {
 			return err
 		}
-		deployDir := cfg.DeployDir
-		if deployDir == "" {
-			deployDir = os.Getenv("DEPLOY_DIR")
+		mapper := "flows"
+		if v, err := cmd.Flags().GetString("mapper"); err == nil {
+			mapper = v
 		}
-		if deployDir == "" {
-			deployDir = filepath.Join(filepath.Dir(cfg.ImageDir), "deployments")
+		deployDir, err := cfg.GetDeployDir(mapper)
+		if err != nil {
+			return fmt.Errorf("failed to evaluate deployDir: %w", err)
 		}
 		instanceName := args[0]
 		// Find the matching file by instance name (basename without .toml)
@@ -504,6 +516,7 @@ func init() {
 	if util.Isatty(os.Stdout.Fd()) {
 		defaultOutput = "table"
 	}
+	listInstancesCmd.Flags().String("mapper", "flows", "Mapper associated with the flow")
 	listInstancesCmd.Flags().StringP("output", "o", defaultOutput, "Output format: table|jsonl|tsv")
 	listInstancesCmd.Flags().String("select", "", "Comma separated list of columns to display (e.g. name,image,imageVersion)")
 	_ = listInstancesCmd.RegisterFlagCompletionFunc("output", func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
@@ -515,6 +528,10 @@ func init() {
 
 	deployCmd.Flags().String("interval", "", "Interval in seconds (optional)")
 	deployCmd.Flags().StringArray("topics", nil, "Input topics (repeatable, optional)")
+	deployCmd.Flags().String("mapper", "flows", "Mapper to deploy the flow to")
+
+	removeInstanceCmd.Flags().String("mapper", "flows", "Mapper to remove the flow from")
+
 	_ = deployCmd.RegisterFlagCompletionFunc("topics", func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 		// Common thin-edge.io MQTT topics
 		commonTopics := []string{

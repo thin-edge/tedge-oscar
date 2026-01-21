@@ -2,7 +2,7 @@
 image_dir = "/usr/share/tedge/flows"
 
 # Directory where deployment instance TOML files will be written
-deploy_dir = "$TEDGE_CONFIG_DIR/flows"
+deploy_dir = '{{ .Env.TEDGE_CONFIG_DIR }}/mappers/{{ .Mapper }}/flows'
 
 [[registries]]
 registry = "ghcr.io"
