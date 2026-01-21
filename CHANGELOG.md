@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.0](https://github.com/thin-edge/tedge-oscar/compare/v0.8.0...v0.9.0) (2026-01-21)
+
+
+### Features
+
+* support deploying to flows for a specific mapper ([#32](https://github.com/thin-edge/tedge-oscar/issues/32)) ([ebfaed9](https://github.com/thin-edge/tedge-oscar/commit/ebfaed97fb3358fb5d12deeba158135b037e0493))
+
+
+### Bug Fixes
+
+* prevent path traversal attacks ([#34](https://github.com/thin-edge/tedge-oscar/issues/34)) ([b23381c](https://github.com/thin-edge/tedge-oscar/commit/b23381c55afc79f56180461719d27d05546d5360))
+
 ## [0.8.0](https://github.com/thin-edge/tedge-oscar/compare/v0.7.0...v0.8.0) (2025-08-21)
 
 
