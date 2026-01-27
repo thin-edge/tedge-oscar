@@ -25,6 +25,12 @@ A Go CLI tool to manage thin-edge.io flows, including pulling and pushing flow i
    tedge-oscar flows images pull ghcr.io/youruser/your-flow:1.0
    ```
 
+   You can also save it as a tarball using
+
+   ```sh
+   tedge-oscar flows images pull ghcr.io/youruser/your-flow:1.0 --tarball
+   ```
+
 3. Deploy an instance using the pulled image
 
    ```sh
