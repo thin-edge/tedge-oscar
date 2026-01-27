@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/thin-edge/tedge-oscar/compare/v0.9.0...v0.10.0) (2026-01-27)
+
+
+### Features
+
+* add option to pull image and save as a tarball ([#35](https://github.com/thin-edge/tedge-oscar/issues/35)) ([99b182e](https://github.com/thin-edge/tedge-oscar/commit/99b182eb80c89d06cdcf128874196e03fbd424b5))
+
 ## [0.9.0](https://github.com/thin-edge/tedge-oscar/compare/v0.8.0...v0.9.0) (2026-01-21)
 
 
