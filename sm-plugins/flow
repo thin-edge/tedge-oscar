@@ -13,6 +13,7 @@ MAPPER="${MAPPER:-flows}"
 PRESERVE_CONFIG_ON_DELETE="${PRESERVE_CONFIG_ON_DELETE:-1}"
 MAPPERS_BASE_DIR="$TEDGE_CONFIG_DIR/mappers"
 
+PARAMS_FILE="params.toml"
 
 usage() {
     cat <<EOT
@@ -114,7 +115,7 @@ list_for_mapper() {
         echo "Flow directory does not exist. path=$MAPPER_DIR" >&2
         exit "$EXIT_OK"
     fi
-    find "$MAPPER_DIR" -type f -name "*.toml" ! -name "config.toml" | while read -r CURRENT_FLOW_FILE; do
+    find "$MAPPER_DIR" -type f -name "*.toml" ! -name "$PARAMS_FILE" | while read -r CURRENT_FLOW_FILE; do
         # echo "found: $CURRENT_FLOW_FILE" >&2
         CURRENT_FLOW_DIR="$(dirname "$CURRENT_FLOW_FILE")"
         NAME=${CURRENT_FLOW_DIR#"$MAPPER_DIR/"}
@@ -175,8 +176,8 @@ remove_flow() {
     if [ -d  "$FLOW_DIR" ]; then
         case "$PRESERVE_CONFIG_ON_DELETE" in
             y|Y|YES|yes|1)
-                # delete all files that aren't named "config.toml"
-                find "$FLOW_DIR" -type f ! -name config.toml -delete
+                # delete all files that aren't except the params file
+                find "$FLOW_DIR" -type f ! -name "$PARAMS_FILE" -delete
                 # delete all dirs which are empty
                 rmdir --ignore-fail-on-non-empty "$FLOW_DIR/"** ||:
                 rmdir --ignore-fail-on-non-empty "$FLOW_DIR" ||:
