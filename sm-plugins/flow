@@ -115,7 +115,7 @@ list_for_mapper() {
         echo "Flow directory does not exist. path=$MAPPER_DIR" >&2
         exit "$EXIT_OK"
     fi
-    find "$MAPPER_DIR" -type f -name "*.toml" ! -name "$PARAMS_FILE" | while read -r CURRENT_FLOW_FILE; do
+    find "$MAPPER_DIR" -type f -name "*.toml" ! -name "$PARAMS_FILE" -a ! -name config.toml | while read -r CURRENT_FLOW_FILE; do
         # echo "found: $CURRENT_FLOW_FILE" >&2
         CURRENT_FLOW_DIR="$(dirname "$CURRENT_FLOW_FILE")"
         NAME=${CURRENT_FLOW_DIR#"$MAPPER_DIR/"}
@@ -126,7 +126,7 @@ list_for_mapper() {
 
 install_flow() {
     if [ ! -f "$FILE" ]; then
-        echo "faild to install flow as the given file does not exist. path=$FILE" >&2
+        echo "ERROR: failed to install flow as the given file does not exist. path=$FILE" >&2
         exit "$EXIT_ERROR"
     fi
 
@@ -162,9 +162,6 @@ install_flow() {
                 echo "Unpacking flow (assuming tar) to $FLOW_DIR" >&2
                 tar -xf "$FILE" -C "$FLOW_DIR"
             fi
-            
-            # echo "Unsupported file extension. Only .tar.gz and .tar files are supported" >&2
-            # exit 1
             ;;
     esac
 }
