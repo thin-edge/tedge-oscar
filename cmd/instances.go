@@ -118,7 +118,7 @@ $ tedge-oscar flows instances list`,
 				// Try to get image version from manifest.json
 				manifestPath := ""
 				if strings.HasPrefix(data.Steps[0].Script, cfg.ImageDir) {
-					// e.g. /Users/you/.tedge/images/imagename/dist/main.mjs
+					// e.g. /Users/you/.tedge/images/imagename/lib/main.js
 					imgDir := filepath.Dir(filepath.Dir(data.Steps[0].Script))
 					manifestPath = filepath.Join(imgDir, "manifest.json")
 				}
@@ -311,7 +311,7 @@ $ tedge-oscar flows instances deploy myinstance ghcr.io/thin-edge/connectivity-c
 		}
 
 		imagePath := filepath.Join(cfg.ImageDir, name)
-		scriptPath := filepath.Join(imagePath, "dist/main.mjs")
+		scriptPath := filepath.Join(imagePath, "lib/main.js")
 		fmt.Fprintf(cmd.ErrOrStderr(), "script path: %s\n", scriptPath)
 
 		if _, err := os.Stat(imagePath); os.IsNotExist(err) {

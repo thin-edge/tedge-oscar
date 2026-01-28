@@ -62,11 +62,17 @@ nfpms:
     homepage: "https://github.com/thin-edge/tedge-oscar"
     license: "Apache-2.0"
     bindir: /usr/bin
+    scripts:
+      postinstall: packaging/postinstall.sh
     contents:
       - src: ./LICENSE
         dst: /usr/share/doc/tedge-oscar/LICENSE
       - src: ./README.md
         dst: /usr/share/doc/tedge-oscar/README.md
+      - src: ./sm-plugins/flow
+        dst: /etc/tedge/sm-plugins/flow
+        file_info:
+          mode: 0755
       - src: ./sm-plugins/tedge-flows
         dst: /etc/tedge/sm-plugins/tedge-flows
         file_info:
@@ -98,11 +104,17 @@ nfpms:
     homepage: "https://github.com/thin-edge/tedge-oscar"
     license: "Apache-2.0"
     bindir: /usr/bin
+    scripts:
+      postinstall: packaging/postinstall.sh
     contents:
       - src: ./LICENSE
         dst: /usr/share/doc/tedge-oscar/LICENSE
       - src: ./README.md
         dst: /usr/share/doc/tedge-oscar/README.md
+      - src: ./sm-plugins/flow
+        dst: /etc/tedge/sm-plugins/flow
+        file_info:
+          mode: 0755
       - src: ./sm-plugins/tedge-flows
         dst: /etc/tedge/sm-plugins/tedge-flows
         file_info:
@@ -134,11 +146,17 @@ nfpms:
     homepage: "https://github.com/thin-edge/tedge-oscar"
     license: "Apache-2.0"
     bindir: /usr/bin
+    scripts:
+      postinstall: packaging/postinstall.sh
     contents:
       - src: ./LICENSE
         dst: /usr/share/doc/tedge-oscar/LICENSE
       - src: ./README.md
         dst: /usr/share/doc/tedge-oscar/README.md
+      - src: ./sm-plugins/flow
+        dst: /etc/tedge/sm-plugins/flow
+        file_info:
+          mode: 0755
       - src: ./sm-plugins/tedge-flows
         dst: /etc/tedge/sm-plugins/tedge-flows
         file_info:
