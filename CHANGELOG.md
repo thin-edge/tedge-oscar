@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/thin-edge/tedge-oscar/compare/v0.10.0...v0.11.0) (2026-01-28)
+
+
+### Features
+
+* refactor flow packaging ([#37](https://github.com/thin-edge/tedge-oscar/issues/37)) ([d3dd932](https://github.com/thin-edge/tedge-oscar/commit/d3dd9320973fcd42442b1026d64871f89e6d976e))
+
 ## [0.10.0](https://github.com/thin-edge/tedge-oscar/compare/v0.9.0...v0.10.0) (2026-01-27)
 
 
