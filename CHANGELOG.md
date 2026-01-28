@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/thin-edge/tedge-oscar/compare/v0.11.0...v0.11.1) (2026-01-28)
+
+
+### Bug Fixes
+
+* ignore config.toml files ([#39](https://github.com/thin-edge/tedge-oscar/issues/39)) ([779e1cb](https://github.com/thin-edge/tedge-oscar/commit/779e1cb0085fc95faa793b531b377caad1b093fe))
+
 ## [0.11.0](https://github.com/thin-edge/tedge-oscar/compare/v0.10.0...v0.11.0) (2026-01-28)
 
 
