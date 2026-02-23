@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.2](https://github.com/thin-edge/tedge-oscar/compare/v0.11.1...v0.11.2) (2026-02-23)
+
+
+### Bug Fixes
+
+* derive the flows directory from the flow being installed ([#42](https://github.com/thin-edge/tedge-oscar/issues/42)) ([b01d91f](https://github.com/thin-edge/tedge-oscar/commit/b01d91f46c476bec8ba6411772e1e3fb8bd8745f))
+
 ## [0.11.1](https://github.com/thin-edge/tedge-oscar/compare/v0.11.0...v0.11.1) (2026-01-28)
 
 
