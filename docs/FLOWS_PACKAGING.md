@@ -86,7 +86,7 @@ debug = true
 
 ### Example flow deployments
 
-Below shows the directory structure where multiple flows are installed under the Cumulocity mapper, and the "flows" mapper (i.e. the generic flows engine).
+Below shows the directory structure where multiple flows are installed under the Cumulocity mapper, and the "local" mapper (i.e. the generic flows engine).
 
 **Directory: /etc/tedge/mappers/**
 
@@ -99,7 +99,7 @@ Below shows the directory structure where multiple flows are installed under the
 │   └── measurements
 │       ├── flow.toml
 │       └── main.js
-└── flows
+└── local
     ├── thingsboard
     │   ├── commands
     │   │   ├── flow.toml
@@ -153,11 +153,8 @@ Below shows examples of the sm-plugins used to install a new flow.
 
 ```sh
 # install (to 'flows' mapper)
-./flows install flows/thingsboard --module-version 0.0.1 --file /opt/homebrew/etc/tedge/flows/images/thingsboard:0.0.1.tar
-./flows install flows/certificate-alert --module-version 1.0.0 --file /opt/homebrew/etc/tedge/flows/images/certificate-alert:1.0.0.tar
-
-# install (to 'c8y' mapper)
-./flows-c8y install c8y/uptime --module-version 1.0.0 --file /opt/homebrew/etc/tedge/flows/images/c8y-uptime:1.0.0.tar
+./flows install local/thingsboard --module-version 0.0.1 --file /opt/homebrew/etc/tedge/flows/images/thingsboard:0.0.1.tar
+./flows install local/certificate-alert --module-version 1.0.0 --file /opt/homebrew/etc/tedge/flows/images/certificate-alert:1.0.0.tar
 ```
 
 **Notes**
@@ -174,8 +171,8 @@ Below shows examples of a flow is removed using the software management plugin:
 
 ```sh
 # remove (version is optional)
-./flows remove certificate-alert --module-version "1.0.0"
-./flows remove thingsboard
+./flows remove local/certificate-alert --module-version "1.0.0"
+./flows remove local/thingsboard
 ```
 
 

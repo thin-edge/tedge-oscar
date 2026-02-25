@@ -9,7 +9,7 @@ TEDGE_CONFIG_DIR=${TEDGE_CONFIG_DIR:-/etc/tedge}
 FILE="${FILE:-}"
 MODULE_NAME="${MODULE_NAME:-}"
 MODULE_VERSION="${MODULE_VERSION:-}"
-MAPPER="${MAPPER:-flows}"
+MAPPER="${MAPPER:-local}"
 PRESERVE_CONFIG_ON_DELETE="${PRESERVE_CONFIG_ON_DELETE:-1}"
 MAPPERS_BASE_DIR="$TEDGE_CONFIG_DIR/mappers"
 
@@ -30,7 +30,7 @@ SUBCOMMANDS
 ARGUMENTS
 
  --name <STRING>        Flow name. If not provided then the filename will be used
- --mapper <STRING>      Mapper name where the flow should be installed. Defaults to 'flows'
+ --mapper <STRING>      Mapper name where the flow should be installed. Defaults to 'local'
  --file <PATH>          File path
 EOT
 }
@@ -122,7 +122,7 @@ get_flows_dir() {
             name=$(echo "$full_module_name" | cut -d/ -f2-)
             ;;
         *)
-            mapper="flows"
+            mapper="local"
             name="$full_module_name"
             ;;
     esac
