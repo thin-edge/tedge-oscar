@@ -103,7 +103,14 @@ list_for_mapper() {
     find "$MAPPER_DIR" -type f -name "*.toml" ! -name "$PARAMS_FILE" -a ! -name config.toml | while read -r CURRENT_FLOW_FILE; do
         # echo "found: $CURRENT_FLOW_FILE" >&2
         CURRENT_FLOW_DIR="$(dirname "$CURRENT_FLOW_FILE")"
-        NAME=${CURRENT_FLOW_DIR#"$MAPPER_DIR/"}
+
+        if [ "$CURRENT_FLOW_DIR" = "$MAPPER_DIR" ]; then
+            # Flow is directly under the flows directory, so the name should be based on the filename
+            # TODO: Should this be included as it is more for the built-in flows
+            NAME=$(basename "$CURRENT_FLOW_FILE" .toml)
+        else
+            NAME=${CURRENT_FLOW_DIR#"$MAPPER_DIR/"}    
+        fi
         VERSION=$(cd "$MAPPER_DIR" && awk -F'"' '/#? *version = / {print $2}' "$CURRENT_FLOW_FILE" ||:)
         printf '%s\t%s\n' "$MAPPER_PREFIX$NAME" "${VERSION:-0.0.0}"
     done
