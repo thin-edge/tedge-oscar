@@ -65,7 +65,7 @@ $ tedge-oscar flows instances list`,
 		if err != nil {
 			return fmt.Errorf("failed to load config: %w", err)
 		}
-		mapper := "flows"
+		mapper := "local"
 		if v, err := cmd.Flags().GetString("mapper"); err == nil {
 			mapper = v
 		}
@@ -287,7 +287,7 @@ $ tedge-oscar flows instances deploy myinstance ghcr.io/thin-edge/connectivity-c
 			return err
 		}
 
-		mapper := "flows"
+		mapper := "local"
 		if v, err := cmd.Flags().GetString("mapper"); err == nil {
 			mapper = v
 		}
@@ -435,7 +435,7 @@ $ tedge-oscar flows instances remove myinstance`,
 		if err != nil {
 			return nil, cobra.ShellCompDirectiveNoFileComp
 		}
-		mapper := "flows"
+		mapper := "local"
 		if v, err := cmd.Flags().GetString("mapper"); err == nil {
 			mapper = v
 		}
@@ -475,7 +475,7 @@ $ tedge-oscar flows instances remove myinstance`,
 		if err != nil {
 			return err
 		}
-		mapper := "flows"
+		mapper := "local"
 		if v, err := cmd.Flags().GetString("mapper"); err == nil {
 			mapper = v
 		}
@@ -516,7 +516,7 @@ func init() {
 	if util.Isatty(os.Stdout.Fd()) {
 		defaultOutput = "table"
 	}
-	listInstancesCmd.Flags().String("mapper", "flows", "Mapper associated with the flow")
+	listInstancesCmd.Flags().String("mapper", "local", "Mapper associated with the flow")
 	listInstancesCmd.Flags().StringP("output", "o", defaultOutput, "Output format: table|jsonl|tsv")
 	listInstancesCmd.Flags().String("select", "", "Comma separated list of columns to display (e.g. name,image,imageVersion)")
 	_ = listInstancesCmd.RegisterFlagCompletionFunc("output", func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
@@ -528,9 +528,9 @@ func init() {
 
 	deployCmd.Flags().String("interval", "", "Interval in seconds (optional)")
 	deployCmd.Flags().StringArray("topics", nil, "Input topics (repeatable, optional)")
-	deployCmd.Flags().String("mapper", "flows", "Mapper to deploy the flow to")
+	deployCmd.Flags().String("mapper", "local", "Mapper to deploy the flow to")
 
-	removeInstanceCmd.Flags().String("mapper", "flows", "Mapper to remove the flow from")
+	removeInstanceCmd.Flags().String("mapper", "local", "Mapper to remove the flow from")
 
 	_ = deployCmd.RegisterFlagCompletionFunc("topics", func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 		// Common thin-edge.io MQTT topics
