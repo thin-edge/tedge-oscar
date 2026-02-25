@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.4](https://github.com/thin-edge/tedge-oscar/compare/v0.11.3...v0.11.4) (2026-02-25)
+
+
+### Bug Fixes
+
+* **sm-plugin:** fix parsing of the flow name directly under the flows directory ([#46](https://github.com/thin-edge/tedge-oscar/issues/46)) ([beceffe](https://github.com/thin-edge/tedge-oscar/commit/beceffea40f6b46d822681031235e2cb6828d202))
+
 ## [0.11.3](https://github.com/thin-edge/tedge-oscar/compare/v0.11.2...v0.11.3) (2026-02-25)
 
 
