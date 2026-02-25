@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.3](https://github.com/thin-edge/tedge-oscar/compare/v0.11.2...v0.11.3) (2026-02-25)
+
+
+### Bug Fixes
+
+* update default mapper name to 'local' ([#44](https://github.com/thin-edge/tedge-oscar/issues/44)) ([cd8457b](https://github.com/thin-edge/tedge-oscar/commit/cd8457be1caf6b41fdc1e1c5b145df47679138ae))
+
 ## [0.11.2](https://github.com/thin-edge/tedge-oscar/compare/v0.11.1...v0.11.2) (2026-02-23)
 
 
