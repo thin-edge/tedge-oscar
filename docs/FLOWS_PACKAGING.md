@@ -12,8 +12,8 @@ A flow package is a tarball file (optionally compressed with gzip) which contain
 Below shows an example of the contents of a simple flow package:
 
 ```sh
-$ tar tvf /thingsboard:0.0.1.tar
--rw-r--r--  0 0      0        4343 Jan  1  1970 dist/main.js
+$ tar tvf thingsboard_0.0.1.tar
+-rw-r--r--  0 0      0        4343 Jan  1  1970 lib/main.js
 -rw-r--r--  0 0      0         493 Jan  1  1970 flow.toml
 ```
 
@@ -49,9 +49,9 @@ config.debug = "${.params.debug}"
 
 ```js
 onMessage(message, context) {
-    if (context.params.debug) {
+    if (context.config.debug) {
         // Print message to help with debugging
-        console.log("Received message", {message});
+        console.log("Received message", {payload: message.payload});
     }
     return [{
         topic: "te/device/main///e/foo",
