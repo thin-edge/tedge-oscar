@@ -33,8 +33,7 @@ archives:
     files:
       - LICENSE
       - README.md
-      - sm-plugins/tedge-flows
-      - sm-plugins/tedge-flow-image
+      - sm-plugins/flow
 
 release:
   mode: keep-existing
@@ -73,14 +72,6 @@ nfpms:
         dst: /etc/tedge/sm-plugins/flow
         file_info:
           mode: 0755
-      - src: ./sm-plugins/tedge-flows
-        dst: /etc/tedge/sm-plugins/tedge-flows
-        file_info:
-          mode: 0755
-      - src: ./sm-plugins/tedge-flow-image
-        dst: /etc/tedge/sm-plugins/tedge-flow-image
-        file_info:
-          mode: 0755
       - src: internal/config/tedge-oscar-linux.toml
         dst: /etc/tedge/plugins/tedge-oscar.toml
         file_info:
@@ -115,14 +106,6 @@ nfpms:
         dst: /etc/tedge/sm-plugins/flow
         file_info:
           mode: 0755
-      - src: ./sm-plugins/tedge-flows
-        dst: /etc/tedge/sm-plugins/tedge-flows
-        file_info:
-          mode: 0755
-      - src: ./sm-plugins/tedge-flow-image
-        dst: /etc/tedge/sm-plugins/tedge-flow-image
-        file_info:
-          mode: 0755
       - src: internal/config/tedge-oscar-linux.toml
         dst: /etc/tedge/plugins/tedge-oscar.toml
         file_info:
@@ -155,14 +138,6 @@ nfpms:
         dst: /usr/share/doc/tedge-oscar/README.md
       - src: ./sm-plugins/flow
         dst: /etc/tedge/sm-plugins/flow
-        file_info:
-          mode: 0755
-      - src: ./sm-plugins/tedge-flows
-        dst: /etc/tedge/sm-plugins/tedge-flows
-        file_info:
-          mode: 0755
-      - src: ./sm-plugins/tedge-flow-image
-        dst: /etc/tedge/sm-plugins/tedge-flow-image
         file_info:
           mode: 0755
       - src: internal/config/tedge-oscar-linux.toml
