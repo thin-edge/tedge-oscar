@@ -36,13 +36,13 @@ Below shows a simplistic example of the parameterization of a flow:
 ```toml
 # meta information about the flow
 name = "foo"
-version = 1.0.0
+version = "1.0.0"
 
 input.mqtt.topics = ["foo"]
 
 [[steps]]
 script = "main.js"
-params.debug = "${.params.debug}"
+config.debug = "${.params.debug}"
 ```
 
 **file: main.js (created by the flow)**
@@ -107,7 +107,7 @@ Below shows the directory structure where multiple flows are installed under the
     │   └── telemetry
     │       ├── flow.toml
     │       └── main.js
-    └── uptime
+    └── certificate-alert
         ├── params.toml
         ├── params.toml.template
         ├── flow.toml
@@ -133,8 +133,17 @@ The list command lists all of the flows from all of the mappers. A prefix is use
 ```
 
 * The `{mapper}` value is determined from the mapper name in which the flow is located
-* The name is determined from the `.name` property of the `flow.toml`
-* The version is determined from the `.version` property of the `flow.toml`
+* The name is determined from the location of the flow.
+
+    **Examples**
+
+    * `/etc/tedge/mappers/c8y/flows/foo/flow.toml` => `c8y/foo`
+    * `/etc/tedge/mappers/local/flows/myflow/flow.toml` => `local/myflow`
+    * `/etc/tedge/mappers/local/flows/another.toml` => `local/another`
+
+    By convention the `.name` property inside the `flow.toml` should be kept inline with the folder structure, however this is pure convention and should not be relied upon since there is no guarantee that it is unique (unlike the file path).
+
+* The version is determined from the `.version` property of the `flow.toml`. If a version is not provided, then `0.0.0` shall be used.
 
 Below shows an example of the list command showing the installed flows in the corresponding mappers.
 
@@ -142,7 +151,7 @@ Below shows an example of the list command showing the installed flows in the co
 # list
 $ ./flows list
 
-c8y/certificate-alert   1.0.0
+local/certificate-alert   1.0.0
 ```
 
 ### Install/Update
