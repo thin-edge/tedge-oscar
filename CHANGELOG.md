@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/thin-edge/tedge-oscar/compare/v0.11.4...v0.12.0) (2026-03-05)
+
+
+### Miscellaneous Chores
+
+* release 0.12.0 ([e940006](https://github.com/thin-edge/tedge-oscar/commit/e9400067b1aaf901498329c7871cf94d92253821))
+
 ## [0.11.4](https://github.com/thin-edge/tedge-oscar/compare/v0.11.3...v0.11.4) (2026-02-25)
 
 
